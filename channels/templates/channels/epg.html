@@ -1,0 +1,17 @@
+{%load staticfiles%}
+{% load get_epg %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Channels</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'channels/style.css'%}">
+	<meta charset='utf-8'>
+</head>
+<body>
+<div class="epg_today">
+	{% for i in epg %}
+		<p>{{i|get_time}}   ---   {{i|get_program}}</p>
+	{% endfor %}
+</div>
+</body>
+</html>

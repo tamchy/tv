@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load get_epg %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Channels</title>
+	<meta charset='utf-8'>
+	{% block assets %}
+	<script src="{% static 'channels/js/jquery-1.9.1.js' %}"></script>
+	<script>
+	$(document).ready(function(){
+		$('.channel_tile').hover(function(){
+			$(this).children("img").stop().animate({right:'500px',opacity:.5},{duration:700,easing:'linear'})
+		},function(){
+			$(this).children("img").stop().animate({right:'0px',opacity:1},{duration:600,easing:'linear'})
+		})
+	})
+	</script>
+{% endblock %}
+</head>
+<body>
+{% block content %}
+
+<div class="channels_list"><h2>Новостные Каналы</h2>{%for i in news%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list"><h2>Детские Каналы</h2>{%for i in kids%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list">
+	<h2>Познавательные Каналы</h2>
+	{%for i in edu%}
+		<a href="{% url 'info' i.id%}" >
+			<div class="channel_tile">
+				<img src="{{i.logo.url}}">
+				<div class="epg_block">
+					{{i|get_time_now}} {{i|get_program_now}}
+				</div>
+			</div>
+		</a>
+	{%endfor%}
+</div>
+<div class="channels_list"><h2>Развлекательные Каналы</h2>{%for i in ent%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list"><h2>Спортивные Каналы</h2>{%for i in sport%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list"><h2>Музыкальные Каналы</h2>{%for i in music%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list"><h2>Общие Каналы</h2>{%for i in common%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list"><h2>Фильмовые Каналы</h2>{%for i in film%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list"><h2>Кыргызстанские каналы</h2>{%for i in kyr%}<a href="{% url 'info' i.id%}"><div class="channel_tile"><img src="{{i.logo.url}}"><div class="epg_block">{{i|get_time_now}} {{i|get_program_now}}</div></div></a>{%endfor%}</div>
+<div class="channels_list">
+	<h2>Тестовые Каналы</h2>
+	{%for i in test%}
+		<a href="{% url 'info' i.id%}">
+			<div class="channel_tile">
+				<img src="{{i.logo.url}}">
+				<div class="epg_block">
+					{{i|get_time_now}} {{i|get_program_now}}
+				</div>
+			</div>
+		</a>
+	{%endfor%}
+</div>
+
+	{% if user.is_authenticated %}
+	<a href="{% url 'add' %}">Добавить канал</a>
+	{% endif %}
+
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Views</title>
+</head>
+<body>
+{% block content %}
+{%if errors%}
+{% for error in errors %}
+<li>{{error}}</li>
+{% endfor %}
+{% endif %}
+<form action="" method="post" {% if form.is_multipart %}  enctype='multipart/form-data'  {% endif %}>
+	{{form.as_p}}
+    <input type='submit' value="Добавить канал">
+
+
+
+
+</form>
+
+{% endblock %}
+
+
+</body>
+</html>

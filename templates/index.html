@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Views</title>
+</head>
+<body>
+{% block content %}
+{% if news %}
+{% for i in news %}
+{{i.name}}:{{i.date}}|||{{i.text}}
+{% else %}
+Нет новостей
+{% endif %}
+{% endblock %}
+
+
+</body>
+</html>

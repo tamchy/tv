@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% load get_epg %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Channels</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'channels/css/style.css'%}">
+	<meta charset='utf-8'>
+	{% block assets %}
+	<link rel="stylesheet" type="text/css" href="{% static 'channels/css/jquery.pageslide.css' %}">
+<script type="text/javascript" src="{% static 'channels/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/jquery-1.7.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/jquery-ui-1.8.9.custom.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/jquery.mousewheel.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/jquery.jscrollpane.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/jquery.scrollText.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/jquery.easing.1.3.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/cufon.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/a_LCDNova_400.font.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/player.js' %}"></script>
+<script type="text/javascript" src="{% static 'channels/js/controls.js' %}"></script>
+
+	<script>
+	jQuery(document).ready(function($){
+		$("#epg").pageslide({direction:"right"})
+		})
+		</script>
+	
+	{% endblock %}
+</head>
+<body>
+{% block content %}
+
+
+<h1>{{channel.name}}</h1>
+<div>
+	<img src="{{channel.logo.url}}" width="500px">
+</div>
+
+<p><a href="{% url 'channelEpg' channel.id %}" id="epg">Программа Передач</a></p>
+
+<div id="player" style="width:960px;height:540px;overflow:hidden;position:relative;">
+	<script>
+			(function() {
+						
+						var controls = new TorrentStream.Controls("player", {
+							style:"internal" ,
+							debug: true
+						});
+						try {
+							var player = new TorrentStream.Player(controls.getPluginContainer(), {
+							debug: true,
+							useInternalControls: true,
+							bgColor: "#000000",
+							fontColor: "#ffffff",
+							onLoad: function() {
+									this.registerEventHandler(controls);
+									controls.attachPlayer(this);
+									this.loadUrl('{{channel.torrent_file.url}}',{autoplay: true});									
+									
+								}
+							});
+						}
+						catch(e) {
+							controls.onSystemMessage(e);
+						}
+					})()
+	</script>
+
+</div>
+
+{% endblock %}
+</body>
+{% block footer %}
+
+<script src="{% static 'channels/js/jquery.pageslide.js' %}"></script>
+
+{% endblock %}
+</html>

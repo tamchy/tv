@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Views</title>
+</head>
+<body>
+{% block content %}
+<li>
+{% if news %}
+{% for i in news %}
+<ul>{{i.date}}</ul>
+<ul>{{i.text}}</ul>
+{% endfor %}
+{% else %}
+Нет новостей
+{% endif %}
+</li>
+<p><a href="{% url 'channels_list' %}">Каналы</a></p>
+{% endblock %}
+
+</body>
+</html>

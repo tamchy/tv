@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Channels</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+</head>
+<body>
+{% for error in errors %}
+<li>{{error}}</li>
+{% endfor %}
+
+
+<form action="" method="post">
+{% for f in form %}
+<p>{{f.label}}:{{f}}</p>
+{% endfor %}
+<input type="submit" value="Создать Пользователя">
+</form>
+
+</body>
+
+</html>
